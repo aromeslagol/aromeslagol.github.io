@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/ico" href="images/favicon.ico">
+    <title>首页 | 鱼窝</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="CSS/common.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <img src="images/thamsan.webp" width="60em">
+            <ul class="navbar-menu">
+                <li><a href="#" class="nav-link" data-category="all">首页</a></li>
+                <li><a href="#" class="nav-link" data-category="tech">技术</a></li>
+                <li><a href="#" class="nav-link" data-category="life">生活</a></li>
+                <li><a href="#" class="nav-link" data-category="travel">旅行</a></li>
+                <li>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="搜索文章..." />
+                        <button id="searchBtn" title="搜索">🔍</button>
+                        <button id="clearSearchBtn" class="clear-search hidden" title="清除">✕</button>
+                        <span class="search-result-count" id="searchCount"></span>
+                    </div>
+                </li>
+                <li><button class="theme-toggle" id="themeToggle">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <!-- 分类导航 -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">分类</div>
+                <ul class="sidebar-list">
+                    <li><a class="category-link active" data-category="all">全部文章</a></li>
+                    <li><a class="category-link" data-category="tech">技术文章</a></li>
+                    <li><a class="category-link" data-category="life">生活随笔</a></li>
+                    <li><a class="category-link" data-category="travel">旅行记录</a></li>
+                </ul>
+            </div>
+
+            <!-- 文章列表 -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">最新文章</div>
+                <ul class="sidebar-list" id="articleList">
+                    <!-- 动态加载 -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 正文内容区 -->
+        <main class="main-content">
+            <div id="articleContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>加载中...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 右下角圆形进度条 -->
+    <div class="progress-circle" id="progressCircle">
+        <svg viewBox="0 0 100 100">
+            <circle class="progress-circle-bg" cx="50" cy="50" r="45"></circle>
+            <circle class="progress-circle-fill" cx="50" cy="50" r="45" id="progressFill"></circle>
+        </svg>
+        <div class="progress-text">
+            <div class="progress-percentage" id="progressPercentage">0%</div>
+            <div class="progress-label">阅读进度</div>
+            <div class="reading-time" id="readingTime">0 分钟</div>
+        </div>
+    </div>
+
+    <!-- jQuery 库 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="articles/sample.js"></script>
+    <script src="JS/search.js"></script>
+    <script src="JS/theme.js"></script>
+
+    <script>
+        // ===== 文章加载和显示 =====
+        let currentArticle = null;
+
+        function loadArticles(category = 'all') {
+            const filteredArticles = category === 'all' 
+                ? articles 
+                : articles.filter(a => a.category === category);
+
+            const articleList = document.getElementById('articleList');
+            articleList.innerHTML = '';
+
+            filteredArticles.forEach(article => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a class="article-link" data-id="${article.id}">${article.title}</a>`;
+                articleList.appendChild(li);
+            });
+
+            // 加载第一篇文章
+            if (filteredArticles.length > 0) {
+                loadArticle(filteredArticles[0].id);
+            }
+        }
+
+        function loadArticle(articleId) {
+            const article = articles.find(a => a.id === articleId);
+            if (!article) return;
+
+            currentArticle = article;
+            const container = document.getElementById('articleContainer');
+
+            const html = `
+                <div class="article-header fade-in">
+                    <h1 class="article-title">${article.title}</h1>
+                    <div class="article-meta">
+                        <span>📅 ${article.date}</span>
+                        <span>✍️ ${article.author}</span>
+                        <span>⏱️ 约 ${article.readTime} 分钟</span>
+                    </div>
+                </div>
+                <div class="article-content fade-in">
+                    ${article.content}
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // 更新活跃状态
+            document.querySelectorAll('.article-link').forEach(link => {
+                link.classList.remove('active');
+                if (parseInt(link.dataset.id) === articleId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // 重置进度条
+            updateProgress();
+        }
+
+        // ===== 分类和文章链接事件 =====
+        document.addEventListener('click', function(e) {
+            // 分类链接
+            if (e.target.classList.contains('category-link')) {
+                e.preventDefault();
+                document.querySelectorAll('.category-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                e.target.classList.add('active');
+                loadArticles(e.target.dataset.category);
+            }
+
+            // 顶部导航分类链接
+            if (e.target.classList.contains('nav-link')) {
+                e.preventDefault();
+                const category = e.target.dataset.category;
+                document.querySelectorAll('.category-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.dataset.category === category) {
+                        link.classList.add('active');
+                    }
+                });
+                loadArticles(category);
+            }
+
+            // 文章链接
+            if (e.target.classList.contains('article-link')) {
+                e.preventDefault();
+                loadArticle(parseInt(e.target.dataset.id));
+            }
+        });
+
+        // ===== 阅读进度条 =====
+        let hideProgressTimer = null;
+        const HIDE_DELAY = 5000; // 5秒
+
+        function updateProgress() {
+            const container = document.getElementById('articleContainer');
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.scrollY;
+
+            // 计算进度百分比
+            const scrollableHeight = documentHeight - windowHeight;
+            const progress = scrollableHeight > 0 
+                ? Math.min(Math.round((scrollTop / scrollableHeight) * 100), 100)
+                : 0;
+
+            // 更新进度条
+            const progressFill = document.getElementById('progressFill');
+            const circumference = 2 * Math.PI * 45; // 半径为 45
+            const offset = circumference - (progress / 100) * circumference;
+            progressFill.style.strokeDasharray = circumference;
+            progressFill.style.strokeDashoffset = offset;
+
+            // 更新百分比显示
+            document.getElementById('progressPercentage').textContent = progress + '%';
+
+            // 更新阅读时间
+            if (currentArticle) {
+                const readTime = Math.max(1, Math.round((progress / 100) * currentArticle.readTime));
+                document.getElementById('readingTime').textContent = readTime + ' 分钟';
+            }
+        }
+
+        function showProgressCircle() {
+            const progressCircle = document.getElementById('progressCircle');
+            progressCircle.classList.remove('hidden');
+            progressCircle.classList.add('visible');
+
+            // 清除之前的隐藏计时器
+            if (hideProgressTimer) {
+                clearTimeout(hideProgressTimer);
+            }
+
+            // 设置新的隐藏计时器
+            hideProgressTimer = setTimeout(() => {
+                progressCircle.classList.remove('visible');
+                progressCircle.classList.add('hidden');
+            }, HIDE_DELAY);
+        }
+
+        // 监听滚动事件
+        window.addEventListener('scroll', function() {
+            updateProgress();
+            showProgressCircle();
+        });
+        window.addEventListener('resize', updateProgress);
+
+        // 点击进度条滚动到顶部
+        document.getElementById('progressCircle').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 初始化时显示进度条
+        showProgressCircle();
+
+                // ===== 初始化 =====
+        loadArticles('all');
+        updateProgress();
+    </script>
+</body>
+</html>
