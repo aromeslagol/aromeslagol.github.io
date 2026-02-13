@@ -1,0 +1,2 @@
+# aromeslagol.github.io
+/
