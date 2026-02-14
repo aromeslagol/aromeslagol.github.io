@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,13 @@
     <title>文章 | Aromeslagol</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../source/CSS/common.css">
+    <link rel="stylesheet" type="text/css" href="../source/CSS/footer.css">
 </head>
+
 <body>
     <!-- 顶部导航栏 -->
     <nav class="navbar">
@@ -85,6 +90,62 @@
         </div>
     </div>
 
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- 关于我们 -->
+            <div class="footer-section">
+                <h3 class="footer-title">关于 Aromeslagol</h3>
+                <p class="footer-description">
+                    照镜子，然后你将看到上帝的模样
+                </p>
+                <div class="footer-social">
+                    <a href="https://github.com/aromeslagol" title="GitHub">
+                        <i>G&nbsp;</i>
+                    </a>
+                    <a href="https://x.com/piscesthamsan" title="Twitter">
+                        <i>X&nbsp;</i>
+                    </a>
+                    <a href="https://rscflib.fandom.com/zh/User:澶山稵杞" title="Fandom">
+                        <i>F&nbsp;</i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 工具 -->
+            <div class="footer-section">
+                <h3 class="footer-title">工具</h3>
+                <ul class="footer-links">
+                    <li><a href="#" id="themeToggleFooter"><i>🌙</i> 切换主题</a></li>
+                    <li><a href="#searchInput"><i>🔍</i> 搜索文章</a></li>
+                    <li><a href="#" id="backToTop"><i>⬆️</i> 回到顶部</a></li>
+                    <li><a href="#" id="toggleProgress"><i>📊</i> 显示/隐藏进度</a></li>
+                </ul>
+            </div>
+
+            <!-- 外链 -->
+            <div class="footer-section">
+                <h3 class="footer-title">外链</h3>
+                <ul class="footer-links">
+                    <li><a href="https://rscf.fandom.com/zh/" target="_blank"><i>🏠</i> 雨青池出版社 Wiki</a></li>
+                    <li><a href="https://rscflib.fandom.com/zh/" target="_blank"><i>📚</i> 雨青池图书馆 Wiki</a></li>
+                    <li><a href="https://wentania.fandom.com/zh/" target="_blank"><i>👤</i> 牢闻的Wiki</a></li>
+                    <li><a href="https://aromeslagol.github.io/bfdic/"><i>🔗</i> Benfour词典</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 Aromeslagol.&nbsp;&nbsp;All Rights Reserved.</p>
+            <p class="footer-copyright">
+                本网站使用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"
+                    style="color: var(--accent-color);">CC BY-NC-SA 4.0</a> 许可证 |
+                由 <a href="https://github.com/aromeslagol" target="_blank"
+                    style="color: var(--accent-color);">Aromeslagol</a> 构建
+            </p>
+        </div>
+    </footer>
+
     <!-- jQuery 库 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -93,6 +154,7 @@
     <script src="../source/JS/articletimer.js"></script>
     <script src="../source/JS/search.js"></script>
     <script src="../source/JS/theme.js"></script>
+    <script src="../source/JS/footer.js"></script>
 
 </body>
 </html>
