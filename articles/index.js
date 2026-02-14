@@ -1,7 +1,7 @@
 // ===== 博客数据 =====
 window.articlesList = window.articlesList || [];
 window.articlesList.push({
-    id: 1,
+    id: 2, // 文章ID必须唯一
     title: '欢迎来到aromeslagol的主页！',
     category: 'intro',
     date: '2026-02-14',
