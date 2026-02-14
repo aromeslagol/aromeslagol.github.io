@@ -18,7 +18,7 @@
 
 body.dark-mode {
     --primary-color: #ecf0f1;
-    --accent-color: #52c0b0;
+    --accent-color: #31aaac;
     --text-color: #ecf0f1;
     --bg-color: #1a2020;
     --border-color: #333333;
@@ -35,14 +35,75 @@ body {
     overflow-x: hidden;
 }
 
+/* ===== 自定义字体 ===== */
+@font-face {
+  font-family: 'Musadism';          /* 自定义字体名称 */
+  src: url('/fonts/MusadismAfucis-Regular.woff2') format('woff2'),  /* WOFF2 优先 */
+       url('/fonts/MusadismAfucis-Regular.woff') format('woff');    /* WOFF 作为后备 */
+  font-weight: normal;                  /* 正常字重 */
+  font-style: normal;                   /* 正常样式 */
+  font-display: swap;                    /* 可选：控制字体加载时的显示行为 */
+}
+
 /* ===== 顶部导航栏 ===== */
+
+/* logo图片和字符串包裹容器 */
+.navbar-logo-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo-text {
+    margin-left: 8px;
+    font-size: 1.1em;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+    display: inline-block;
+}
+
+@media (max-width: 900px) {
+    .navbar-logo-text {
+        max-width: 70px;
+        font-size: 0.95em;
+    }
+}
+
+@media (max-width: 700px) {
+    .navbar-logo-text {
+        max-width: 40px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 550px) {
+    .navbar-logo-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+
+    .navbar-logo-text {
+        margin-left: 0;
+        margin-top: 2px;
+        max-width: 100vw;
+        font-size: 1em;
+        opacity: 1;
+        display: block;
+        text-align: left;
+    }
+}
+
 @media (max-width: 550px) {
     .navbar-content {
         flex-direction: column;
         align-items: stretch;
         gap: 0.5rem;
     }
-    .navbar-content > img {
+
+    .navbar-content>img {
         display: inline-block;
         vertical-align: middle;
         margin-bottom: 0.5rem;
@@ -50,6 +111,7 @@ body {
         width: 40px !important;
         height: auto;
     }
+
     .navbar-menu {
         flex-direction: row;
         justify-content: flex-start;
@@ -58,13 +120,16 @@ body {
         width: 100%;
         margin-bottom: 0;
     }
+
     .navbar-menu li {
         margin-bottom: 0;
         display: inline-block;
     }
+
     .navbar-menu {
         position: relative;
     }
+
     .theme-toggle {
         position: absolute;
         right: 0.5rem;
@@ -75,6 +140,7 @@ body {
         vertical-align: middle;
         z-index: 2;
     }
+
     .search-box {
         width: 100%;
         margin-top: 0.5rem;
@@ -83,16 +149,23 @@ body {
         display: flex;
         justify-content: stretch;
     }
+
     .navbar-menu .search-box {
         display: none;
     }
 }
+
 .nav-hideable {
     display: inline-block;
     transition: font-size 0.3s, opacity 0.3s;
 }
+
 .nav-link-active {
     font-weight: 700;
+}
+
+.navbar-logo-text {
+    font-family: 'Poppins', sans-serif;
 }
 
 @media (max-width: 800px) {
@@ -101,12 +174,14 @@ body {
         opacity: 0.8;
     }
 }
+
 @media (max-width: 675px) {
     .nav-hideable {
         font-size: 0.65em;
         opacity: 0.5;
     }
 }
+
 @media (max-width: 550px) {
     .nav-hideable {
         font-size: 0.01em;
@@ -117,6 +192,7 @@ body {
         vertical-align: middle;
     }
 }
+
 .navbar {
     background-color: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
@@ -132,8 +208,44 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    min-width: 0;
+    gap: 0.5rem;
+}
+
+.navbar-logo-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@media (max-width: 900px) {
+    .navbar-logo-text {
+        max-width: 70px;
+        font-size: 0.95em;
+    }
+}
+
+@media (max-width: 700px) {
+    .navbar-logo-text {
+        max-width: 40px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 550px) {
+    .navbar-logo-text {
+        max-width: 0;
+        font-size: 0.01em;
+        opacity: 0;
+        padding: 0;
+        margin: 0;
+    }
 }
 
 .navbar-brand {
@@ -197,15 +309,15 @@ body {
 
 /* 高亮样式 */
 .highlight {
-    background-color: #ffeb3b;
-    color: #000;
+    background-color: #885139;
+    color: #fff;
     font-weight: 600;
-    padding: 0.1rem 0.2rem;
-    border-radius: 2px;
+    padding: 0.2rem 0.4rem;
+    border-radius: 5px;
 }
 
 body.dark-mode .highlight {
-    background-color: #ffc107;
+    background-color: #f6be98;
     color: #000;
 }
 
@@ -305,12 +417,11 @@ body.dark-mode .highlight {
 }
 
 .sidebar-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Musadism', 'Playfair Display', serif;
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--accent-color);
-    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
