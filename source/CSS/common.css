@@ -460,6 +460,40 @@ body.dark-mode .highlight {
     box-shadow: var(--shadow);
 }
 
+.main-content a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    transition: var(--transition);
+    margin: 0 1em;
+    transform: translateZ(0);
+    transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 3D效果 */
+    transition: font-size 0.6s ease-in-out;
+    display: inline-block; /* 保持布局稳定 */
+}
+
+.main-content a:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 24px rgba(64, 64, 64, 0.9); /* 雾状效果 */
+    text-decoration: none;
+}
+
+.main-content a:active {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 1.2em;
+    transform: scale(1.2) translateZ(0); /* 3D效果 */
+    animation: release 0.3s forwards;
+}
+
+.main-content a:hover:not(:active) {
+    transition: font-size 0.6s ease-in-out;
+}
+
+@keyframes release {
+    from { font-size: 1.2em; }
+    to { font-size: inherit; }
+} 
+
 .article-header {
     margin-bottom: 2rem;
     border-bottom: 2px solid var(--border-color);
