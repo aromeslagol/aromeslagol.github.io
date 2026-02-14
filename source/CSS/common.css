@@ -35,7 +35,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ===== 顶部导航栏 ===== */
+/* ==== 顶部导航栏 ==== */
 .navbar {
     background-color: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
