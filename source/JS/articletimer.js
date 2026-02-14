@@ -1,4 +1,4 @@
-// ===== 文章加载和显示 =====
+// 文章加载与显示
 let currentArticle = null;
 
 function loadArticles(category = 'all') {
@@ -75,7 +75,7 @@ document.addEventListener('click', function (e) {
     }
 });
 
-// ===== 阅读进度条 =====
+// 阅读进度条
 let hideProgressTimer = null;
 const HIDE_DELAY = 5000; // 5秒
 
@@ -140,6 +140,6 @@ document.getElementById('progressCircle').addEventListener('click', function () 
 // 初始化时显示进度条
 showProgressCircle();
 
-// ===== 初始化 =====
+// 初始化
 loadArticles('all');
 updateProgress();
