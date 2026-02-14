@@ -23,7 +23,7 @@ body.dark-mode {
     --bg-color: #1a2020;
     --border-color: #333333;
     --card-bg: #2c3131;
-    --sidebar-bg: #222828;
+    --sidebar-bg: #242a2a;
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -35,7 +35,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ==== 顶部导航栏 ==== */
+/* ===== 顶部导航栏 ===== */
 @media (max-width: 550px) {
     .navbar-content {
         flex-direction: column;
@@ -90,6 +90,9 @@ body {
 .nav-hideable {
     display: inline-block;
     transition: font-size 0.3s, opacity 0.3s;
+}
+.nav-link-active {
+    font-weight: 700;
 }
 
 @media (max-width: 800px) {
@@ -515,7 +518,7 @@ body.dark-mode .highlight {
 }
 
 /* ===== 响应式设计 ===== */
-@media (max-width: 1024px) {
+@media (max-width: 960px) {
     .container {
         flex-direction: column;
         gap: 1.5rem;
@@ -541,7 +544,7 @@ body.dark-mode .highlight {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 720px) {
     .navbar {
         padding: 1rem;
     }
