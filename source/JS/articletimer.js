@@ -68,19 +68,6 @@ document.addEventListener('click', function (e) {
         loadArticles(e.target.dataset.category);
     }
 
-    // 顶部导航分类链接
-    if (e.target.classList.contains('nav-link')) {
-        e.preventDefault();
-        const category = e.target.dataset.category;
-        document.querySelectorAll('.category-link').forEach(link => {
-            link.classList.remove('active');
-            if (link.dataset.category === category) {
-                link.classList.add('active');
-            }
-        });
-        loadArticles(category);
-    }
-
     // 文章链接
     if (e.target.classList.contains('article-link')) {
         e.preventDefault();
