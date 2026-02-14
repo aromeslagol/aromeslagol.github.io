@@ -1,10 +1,22 @@
 // 文章加载与显示
 let currentArticle = null;
 
+function getAllArticles() {
+    // 兼容旧数据
+    if (window.articlesList && Array.isArray(window.articlesList)) {
+        return window.articlesList;
+    } else if (typeof articles !== 'undefined' && Array.isArray(articles)) {
+        return articles;
+    } else {
+        return [];
+    }
+}
+
 function loadArticles(category = 'all') {
+    const allArticles = getAllArticles();
     const filteredArticles = category === 'all'
-        ? articles
-        : articles.filter(a => a.category === category);
+        ? allArticles
+        : allArticles.filter(a => a.category === category);
 
     const articleList = document.getElementById('articleList');
     articleList.innerHTML = '';
@@ -22,7 +34,8 @@ function loadArticles(category = 'all') {
 }
 
 function loadArticle(articleId) {
-    const article = articles.find(a => a.id === articleId);
+    const allArticles = getAllArticles();
+    const article = allArticles.find(a => a.id === articleId);
     if (!article) return;
 
     currentArticle = article;
