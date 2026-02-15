@@ -1,3 +1,15 @@
+// 监听去掉右键操作
+window.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+}, false)
+$(document).on('keydown', function (event) {
+    // 检查按下的是否是F12键
+    if (event.keyCode === 123) {
+        // 阻止默认行为，即禁用F12调试功能
+        event.preventDefault();
+    }
+});
+
 // 文章加载与显示
 let currentArticle = null;
 
