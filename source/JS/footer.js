@@ -23,10 +23,10 @@ $(document).ready(function() {
         const progressCircle = $('#progressCircle');
         if (progressCircle.hasClass('hidden')) {
             progressCircle.removeClass('hidden').addClass('visible');
-            $(this).html('<i>📊</i> 隐藏进度');
+                        $(this).html('<i class="fa-solid fa-chart-simple"></i> 隐藏进度');
         } else {
             progressCircle.removeClass('visible').addClass('hidden');
-            $(this).html('<i>📊</i> 显示进度');
+            $(this).html('<i class="fa-solid fa-chart-simple"></i> 显示进度');
         }
         return false;
     });
@@ -57,7 +57,7 @@ $(document).ready(function() {
     // 更新页脚主题切换按钮文本
     function updateFooterThemeButton() {
         const isDarkMode = $('body').hasClass('dark-mode');
-        $('#themeToggleFooter').html(isDarkMode ? '<i>☀️</i> 切换主题' : '<i>🌙</i> 切换主题');
+        $('#themeToggleFooter').html(isDarkMode ? '<i class="fa-solid fa-sun"></i> 切换主题' : '<i class="fa-solid fa-moon"></i> 切换主题');
     }
 
     // 监听主题变化
